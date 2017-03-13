@@ -1,0 +1,4 @@
+---
+- name: install sendmail-bin
+  apt: name=sendmail-bin state=latest
+

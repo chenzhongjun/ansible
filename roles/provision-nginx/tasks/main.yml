@@ -1,0 +1,32 @@
+---
+
+- name: install software-properties-common
+  apt: name=software-properties-common state=present update_cache=yes 
+
+- name: update ca root certificates
+  apt: name=ca-certificates state=present update_cache=yes
+
+- name: add ppa:ondrej/php
+  apt_repository: repo='ppa:ondrej/php'
+
+- name: add ppa:fxr/nginx-mainline-alpn
+  apt_repository: repo='ppa:fxr/nginx-mainline-alpn'
+
+- name: install openssl 
+  apt: name=openssl state=present update_cache=yes
+
+- name: install nginx
+  apt: name=nginx state=present update_cache=yes
+
+- name: install apache2-utils
+  apt: name=apache2-utils state=present
+
+- name: copy configure files
+  copy: src=./roles/provision-nginx/etc/nginx/nginx.conf dest=/etc/nginx/ mode=0644
+
+- name: create snippets directory
+  file: path=/etc/nginx/snippets state=directory
+
+- name: copy website optimization file
+  copy: src=./roles/provision-nginx/etc/nginx/snippets/proxy dest=/etc/nginx/snippets/proxy
+

@@ -1,0 +1,21 @@
+---
+
+- name: Download zabbix-agent from repository
+  get_url: 
+    url=http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_{{ zabbix_agent_version }}-1+trusty_all.deb
+    dest=/root/
+
+- name: install zabbix-agent repository
+  apt: deb=/root/zabbix-release_3.0-1+trusty_all.deb
+
+- name: install zabbix-agent
+  apt: name=zabbix-agent update_cache=yes 
+
+- name: copy modify zabbix config file
+  copy: src=../scripts/modify_zabbix_conf.sh dest=/root/modify_zabbix_conf.sh mode=0755
+
+- name: config zabbix agent remote server
+  shell: /root/modify_zabbix_conf.sh
+
+- name: start zabbix-agent service
+  service: name=zabbix-agent state=started

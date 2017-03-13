@@ -1,0 +1,55 @@
+---
+- name: config remote server
+  hosts: itc
+  sudo: True
+  tasks:
+    - name: install git
+      apt: name=git state=present
+      
+    - name: install imagemagick 
+      apt: name=imagemagick state=latest
+
+    - name: Install mysql
+      action: apt name={{ item }} state=latest force=yes
+      with_items:
+        - python-mysqldb
+        - mysql-server
+  
+    - name: Configure mysql root password
+      mysql_user: name=root host={{ item }} password="root"
+      with_items:
+        - "{{ ansible_hostname }}"
+        - 127.0.0.1
+        - ::1
+        - localhost
+
+    - name: start mysql-server service
+      action: service name=mysql state=restarted enabled=True
+      
+    - name: Install nginx
+      apt: name=nginx state=latest
+  
+    - name: start nginx
+      service: name=nginx state=restarted
+    
+    - name: Install php PPA
+      apt_repository: repo="ppa:ondrej/php" state=present
+  
+    - name: Update cache
+      apt: update_cache=yes
+  
+    - name: install PHP
+      action: apt pkg={{ item }} state=installed
+      with_items:
+        - php5.6-fpm
+        - php5.6-mysql
+        - php5.6-curl
+        - php5.6-gd
+        - php5.6-imagick
+    
+    - name: install sendmail-bin
+      apt: name=sendmail-bin state=latest
+    
+    - name: Install vim
+      apt: name=vim state=latest
+
