@@ -1,19 +1,1 @@
-[itc]
-#itc-redmine-1
-#itc-staging-1
-#itc-staging-2
-#itc-odoo-production ansible_ssh_user=root
-#itc-sentry-1
-#itc-gitlab-1 ansible_ssh_port=22080 ansible_ssh_user=root
-#itc-sentry-1
-#frt-hk-prod1 ansible_ssh_port=2222 ansible_ssh_user=root ansible_ssh_pass=wrafAwr2pRaw
-#gstar-sync
-#itc-gitlab-hk
-#192.168.10.84
-#transfintech ansible_ssh_port=9222
-#amcham
-#hoka-prod
-#hychinese
-#jlr-prod ansible_ssh_port=22080
-#essca
 amcham
