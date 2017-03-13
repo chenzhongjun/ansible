@@ -1,30 +1,31 @@
 ---
-#- name: upgrade system
-#  apt: upgrade=dist update_cache=yes cache_valid_time=1800
+- name: upgrade system
+  apt: upgrade=dist update_cache=yes cache_valid_time=1800
 
-- name: install apt-transport-https 
-  apt: name=apt-transport-https state=present update_cache=yes cache_valid_time=900
-
-- name: install ca-certificates
-  apt: name=ca-certificates state=present update_cache=yes cache_valid_time=900
-
-- name: install software-propertities-comman
-  apt: name=software-properties-common state=present
-
-  #- name: install curl
-  #  apt: name=curl update_cache=yes
+- name: install necessary software 
+  apt: name={{ items }} state=present update_cache=yes cache_valid_time=900
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
 
 - name: add GPG key
   shell: curl -fsSL https://apt.dockerproject.org/gpg | sudo apt-key add -
 
 - name: add key
-  shell: apt-key fingerprint 58118E89F3A912897C070ADBF76221572C52609D
+  shell: apt-key fingerprint 0EBFCD88
 
-  #- name: add docker repository
-  #apt_repository: repo=deb https://apt.dockerproject.org/repo/ubuntu-$(lsb_release -cs) main state=present update_cache=yes
+- name: add docker repository in ubuntu 16.04
+  shell: echo "deb [arch=amd64] https://download.dockcer.com/linux/ubuntu {{ Xenial }}stable" > /etc/apt/sources.list/docker.list
+  when: ansible_distribution_version == 16.04
+
+- name: add docker repository in ububntu 14.04
+  shell: echo "deb [arch=amd64] https://download.dockcer.com/linux/ubuntu {{ Trusty  }}stable" > /etc/apt/sources.list/docker.list
+  when: ansible_distribution_version == 14.04
 
 - name: install docker-engine 
-  apt: name=docker-engine update_cache=yes cache_valid_time=3600 state=present
+  apt: name=docker-ce update_cache=yes cache_valid_time=3600 state=present
 
 - name: restart docker-engine
   service: name=docker state=restarted

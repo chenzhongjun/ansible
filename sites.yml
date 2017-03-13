@@ -2,8 +2,8 @@
   hosts: itc
   remote_user: root
   vars:
-      Trusty: deb https://apt.dockerproject.org/repo ubuntu-trusty main
-      Xenial: deb https://apt.dockerproject.org/repo ubuntu-xenial main
+      Trusty: trusty
+      Xenial: xenial
       zabbix_agent_version: 3.0
   roles:
       #- provision-docker
