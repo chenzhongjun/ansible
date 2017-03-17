@@ -6,8 +6,8 @@
       Xenial: xenial
       zabbix_agent_version: 3.0
   roles:
-      #- provision-docker
-      #- provision-certbot
+      - provision-docker
+      - provision-certbot
         #- provision-vim
-    - provision-zabbix-agent
-        #- provision-nginx
+      - provision-zabbix-agent
+      - provision-nginx
