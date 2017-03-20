@@ -30,9 +30,6 @@
 - name: restart docker-engine
   service: name=docker state=restarted
 
-- name: install docker-compose
-  apt: name=python-pip state=latest
-
 - pip:
     name=docker-compose
 

@@ -9,5 +9,5 @@
       - provision-docker
       - provision-certbot
         #- provision-vim
-      - provision-zabbix-agent
+        #      - provision-zabbix-agent
       - provision-nginx

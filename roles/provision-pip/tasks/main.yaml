@@ -1,0 +1,11 @@
+- name: install pip
+  apt: name=python-pip update_cache=yes
+
+- name: upgrade pip config file
+  shell: echo -e "[global]\nindex-url=https://pypi.python.org/simple/\n\n[install]\ntrusted-host=mirrors.aliyun.com" > /root/.pip/pip.conf
+
+- name: upgrade pip to latest version
+  pip:
+    name: pip
+    extra_args: upgrade
+  

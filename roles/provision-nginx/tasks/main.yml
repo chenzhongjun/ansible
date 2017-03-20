@@ -6,11 +6,11 @@
 - name: update ca root certificates
   apt: name=ca-certificates state=present update_cache=yes
 
-- name: add ppa:ondrej/php
-  apt_repository: repo='ppa:ondrej/php'
-
-- name: add ppa:fxr/nginx-mainline-alpn
-  apt_repository: repo='ppa:fxr/nginx-mainline-alpn'
+  #- name: add ppa:ondrej/php
+  #  apt_repository: repo='ppa:ondrej/php'
+  #
+  #- name: add ppa:fxr/nginx-mainline-alpn
+  #  apt_repository: repo='ppa:fxr/nginx-mainline-alpn'
 
 - name: install openssl 
   apt: name=openssl state=present update_cache=yes
